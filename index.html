@@ -3,48 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samson's Portfolio</title>
+    <title>Samson Tadesse - Software Engineer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <header>
-        <nav>
-            <!-- Navigation Bar -->
-        </nav>
-        <h1>Welcome to My Portfolio</h1>
-    </header>
 
-    <section id="introduction">
-        <h2>Introduction</h2>
-    <p>Hello there! I'm Samson, a curious explorer in the vast universe of Computer Science and Data Science,
-         At Southwest Minnesota State University. 
-         I'm forging my path as a future tech maestro. My journey is fueled by a passion for full-stack development, 
-         machine learning, and web development.</p>
-    </section>
+<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Samson Tadesse</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About Me</a></li>
+            <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</header>
 
-    <section id="about">
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="samson.png" alt="Samson Tadesse" class="hero-image img-fluid">
+            </div>
+            <div class="col-md-6 text-center text-md-left">
+                <h1>Samson Tadesse</h1>
+                <p>Innovating Technology for a Better Tomorrow</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="about" class="about-preview text-center">
+    <div class="container">
         <h2>About Me</h2>
-        <p>Detailed information about your background, academic journey, and key areas of interest.</p>
-        <!-- Additional content -->
-    </section>
+        <p>A passionate Software Engineer with a focus on creating impactful solutions.</p>
+        <a href="#" class="btn btn-primary">Learn More</a>
+    </div>
+</section>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <!-- Project details -->
-    </section>
+<section class="skills-overview">
+    <div class="container">
+        <h3>My Skills</h3>
+        <div class="row">
+            <div class="col-md-4"><h4>Web Development</h4><p>React, JavaScript, CSS</p></div>
+            <div class="col-md-4"><h4>Programming Languages</h4><p>Python, C++, C#</p></div>
+            <div class="col-md-4"><h4>Machine Learning</h4><p>TensorFlow, PyTorch</p></div>
+        </div>
+    </div>
+</section>
 
-    <section id="resume">
-        <h2>Resume</h2>
-        <!-- Link or embed your resume -->
-    </section>
+<section id="projects" class="projects-preview">
+    <div class="container">
+        <h2>Latest Projects</h2>
+        <!-- Project items will be inserted here -->
+    </div>
+</section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <!-- Contact form or information -->
-    </section>
+<section id="contact" class="contact-section">
+    <div class="container text-center">
+        <h2>Contact Me</h2>
+        <p>Feel free to get in touch or follow me on social media.</p>
+        <!-- Contact form or contact details will go here -->
+    </div>
+</section>
 
-    <footer>
-        <!-- Footer content -->
-    </footer>
+<footer class="text-center">
+    <p>&copy; 2024 Samson Tadesse. All Rights Reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
