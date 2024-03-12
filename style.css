@@ -1,34 +1,97 @@
+/* General Body Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    background-color: rgba(54, 168, 221, 0.255);
-    color: #333;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
+/* Header */
+.navbar {
+    background-color: #007bff;
+}
+
+.hero-image {
+    max-width: 200px; 
+    border-radius: 50%;  
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #007bff;
+    color: white;
+    padding: 40px 0px;
+}
+
+.hero-section h1 {
+    font-weight: bold;
+    margin-top: 20px; 
+}
+
+.hero-section p {
+    font-size: 1.2em;
+}
+
+/* About Section */
+.about-preview {
+    padding: 50px 0;
+}
+
+/* Skills Overview */
+.skills-overview .container {
+    padding: 50px 0;
+}
+
+.skills-overview h3 {
     text-align: center;
-    padding: 1em 0;
+    margin-bottom: 30px;
 }
 
-header h1 {
-    margin: 0;
+.skills-overview h4 {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 15px;
 }
 
-nav {
-    /* Navigation bar styling */
+/* Projects Preview */
+.projects-preview {
+    padding: 50px 0;
+    background-color: #ffffff;
+    margin-bottom: 50px;
 }
 
-section {
-    padding: 20px;
-    margin: 20px;
+.projects-preview h2 {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
+/* Contact Section */
+.contact-section {
+    padding: 50px 0;
+}
+
+/* Footer */
 footer {
     background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1em 0;
+    color: #ffffff;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 50px 0;
+    }
+
+    .skills-overview .container, .projects-preview .container, .contact-section .container {
+        padding: 30px 15px;
+    }
+}
+.hero-image {
+    max-width: 200px; /* Adjust based on your preference */
+    border-radius: 50%; /* Creates a circular shape */
+    margin-bottom: 20px; /* Adds some space below the image */
+    margin-right: 500px;
 }
