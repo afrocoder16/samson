@@ -1,0 +1,23 @@
+{
+  "name": "minfo-resume",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "watch": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.min.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.2.13"
+  },
+  "description": "",
+  "dependencies": {
+    "tw-elements": "^2.0.0"
+  }
+}
