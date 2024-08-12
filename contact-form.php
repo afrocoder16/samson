@@ -478,65 +478,23 @@
                         </div>
 
                         <div>
-                            <?php
-                                $webmaster_email = "samson.nigusse7@gmail.com";
-                                $name = $_REQUEST['client__name'] ;
-                                $email_address = $_REQUEST['client_email'] ;
-                                $message = $_REQUEST['contact__message'] ;
-                                $msg =  "First Name: " . $name . "\r\n" . 
-                                        "Email: " . $email_address . "\r\n" . 
-                                        "Message: " . $message ;
+    <form action="https://formspree.io/f/mqazbwle" method="POST">
+        <div>
+            <label for="client__name">Name:</label>
+            <input type="text" id="client__name" name="name" required>
+        </div>
+        <div>
+            <label for="client_email">Email:</label>
+            <input type="email" id="client_email" name="email" required>
+        </div>
+        <div>
+            <label for="contact__message">Message:</label>
+            <textarea id="contact__message" name="message" required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+</div>
 
-                                function isInjected($str) {
-                                    $injections = array('(\n+)',
-                                        '(\r+)',
-                                        '(\t+)',
-                                        '(%0A+)',
-                                        '(%0D+)',
-                                        '(%08+)',
-                                        '(%09+)'
-                                    );
-                                    $inject = join('|', $injections);
-                                    $inject = "/$inject/i";
-                                    if(preg_match($inject,$str)) {
-                                        return true;
-                                    }
-                                    else {
-                                        return false;
-                                    }
-                                }
-                                // If the form fields are empty, redirect to the error page.
-                                if (empty($name) || empty($email_address) || empty($message)) {
-                                    ?>
-                            <h1 class="my-4 font-bold text-black dark:text-white">Oops!</h1>
-                            <p>Please ensure you have completed all fields before submitting the form. </p>
-                            <p>Also ensure that there is only one valid email address.</p>
-                            <?php
-                                }
-                                elseif ( isInjected($email_address) || isInjected($name)  || isInjected($message)) {
-                                    ?>
-                            <h1 class="my-4 font-bold text-black dark:text-white">Oops!</h1>
-                            <p>Please ensure you have completed all fields before submitting the form. </p>
-                            <p>Also ensure that there is only one valid email address.</p>
-                            <?php
-                                }
-                                // If we passed all previous tests, send the email then redirect to the thank you page.
-                                else {
-                                    mail( "$webmaster_email", "Message from Resume Template", $msg );
-                                    ?>
-                            <h1 class="my-4 font-bold text-black dark:text-white">Thanks for Contacting Me</h1>
-                            <p>I appreciate that you took the time to send the message. Your Message has been sent to
-                                the Admin Panel.</p>
-                            <br>
-                            <p>Iam getting back to you soon.</p>
-                            <br>
-                            <a href="index.html"
-                                class="text-center text-sm border border-theme inline-flex items-center justify-center gap-2 text-black dark:text-white rounded-3xl py-3.5 px-8 transition duration-300 hover:bg-theme hover:text-white">Back
-                                to Home</a>
-                            <?php
-                                }
-                            ?>
-                        </div>
 
                     </div>
 
