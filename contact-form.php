@@ -479,7 +479,7 @@
 
                         <div>
                             <?php
-                                $webmaster_email = "youremail@gmail.com";
+                                $webmaster_email = "samson.nigusse7@gmail.com";
                                 $name = $_REQUEST['client__name'] ;
                                 $email_address = $_REQUEST['client_email'] ;
                                 $message = $_REQUEST['contact__message'] ;
