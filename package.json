@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
     "watch": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.min.css --watch",
-    "build": "vite build"
+    "build": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.min.css --minify"
   },
   "keywords": [],
   "author": "",
