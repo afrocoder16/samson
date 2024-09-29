@@ -17,8 +17,14 @@
     "tailwindcss": "^3.4.4",
     "vite": "^5.2.13"
   },
-  "description": "",
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.3",
+    "sequelize": "^6.37.3",
     "tw-elements": "^2.0.0"
-  }
+  },
+  "description": ""
 }
