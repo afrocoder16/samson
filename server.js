@@ -1,6 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const { createClient } = require('@supabase/supabase-js');
+import express from 'express';
+import { createClient } from '@supabase/supabase-js';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+
+// Initialize the Supabase client with environment variables
+const supabaseUrl = 'https://ntldpxbxgxcebatayyju.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50bGRweGJ4Z3hjZWJhdGF5eWp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc2NDQ2MjIsImV4cCI6MjA0MzIyMDYyMn0.XWRaFA0HBYf-hEGvw5miZsnbUiNK3TEBv1qTgDMQSXE';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Initialize Express app
 const app = express();
@@ -8,39 +14,34 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Supabase setup
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// Serve static files (your HTML, CSS, JS)
-app.use(express.static('src'));
-
-// Route to handle contact form submissions
+// Route for handling contact form submissions
 app.post('/contact', async (req, res) => {
-    try {
-        const { name, email, message } = req.body;
+  const { name, email, message } = req.body;
 
-        if (!name || !email || !message) {
-            return res.status(400).json({ message: 'All fields are required' });
-        }
+  try {
+    // Insert the form data into Supabase
+    const { data, error } = await supabase
+      .from('contacts')  // Assuming the table is called 'contacts'
+      .insert([
+        { name, email, message }
+      ]);
 
-        const { data, error } = await supabase
-            .from('contacts')
-            .insert([{ name, email, message }]);
-
-        if (error) throw error;
-
-        res.status(200).json({ message: 'Thank you for your message!' });
-    } catch (error) {
-        res.status(500).json({ message: 'Something went wrong', error: error.message });
+    if (error) {
+      console.error('Error inserting into Supabase:', error);
+      return res.status(500).json({ success: false, message: 'Failed to submit form' });
     }
+
+    res.json({ success: true, message: 'Form submitted successfully!' });
+  } catch (error) {
+    console.error('Server error:', error);
+    res.status(500).json({ success: false, message: 'An error occurred' });
+  }
 });
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
