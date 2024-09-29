@@ -1,64 +1,46 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql2');
-const path = require('path');
+const cors = require('cors');
+const { createClient } = require('@supabase/supabase-js');
 
+// Initialize Express app
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 
-// Create a connection to the MySQL database
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'portfolioDB'
-});
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Connect to MySQL
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err);
-        return;
-    }
-    console.log('Connected to MySQL');
-});
+// Supabase setup
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Middleware to parse form data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// Serve static files from the 'assets' directory
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
+// Serve static files (your HTML, CSS, JS)
 app.use(express.static('src'));
 
-// Serve the index.html file from the main folder
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-  });
+// Route to handle contact form submissions
+app.post('/contact', async (req, res) => {
+    try {
+        const { name, email, message } = req.body;
 
-// Handle form submissions and save to MySQL
-app.post('/contact', (req, res) => {
-    const { name, email, message } = req.body;
-
-    if (!name || !email || !message) {
-        return res.status(400).json({ error: 'Please fill out all fields' });
-    }
-
-    // Insert form data into the MySQL table
-    const sql = 'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)';
-    db.query(sql, [name, email, message], (err, result) => {
-        if (err) {
-            console.error('Error inserting data:', err);
-            return res.status(500).json({ error: 'Failed to save message' });
+        if (!name || !email || !message) {
+            return res.status(400).json({ message: 'All fields are required' });
         }
-        res.status(200).send('Thank you for contacting us!');
-    });
+
+        const { data, error } = await supabase
+            .from('contacts')
+            .insert([{ name, email, message }]);
+
+        if (error) throw error;
+
+        res.status(200).json({ message: 'Thank you for your message!' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error: error.message });
+    }
 });
 
 // Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
-
-
