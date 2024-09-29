@@ -2,12 +2,12 @@
   "name": "samson-resume",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite",
-    "watch": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.min.css --watch",
-    "build": "npx tailwindcss -i ./src/tailwind.css -o ./assets/css/style.min.css --minify"
-  },
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "dev": "vite",
+  "watch": "npx tailwindcss -i ./src/tailwind.css -o ./assets/css/style.min.css --watch",
+  "build": "npx tailwindcss -i ./src/tailwind.css -o ./assets/css/style.min.css --minify"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
