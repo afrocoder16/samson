@@ -1,9 +1,14 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  root: './src',  // Point to your source files
   build: {
-    outDir: '../dist',  // Output directory for production build
-    emptyOutDir: true,
+    outDir: 'dist',
+    assetsDir: 'assets',  // Ensures assets like JS, CSS, and images go into the "assets" folder in the "dist" directory
   },
-})
+  publicDir: 'public', // Ensures Vite includes files from "public"
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
+});
