@@ -1164,7 +1164,7 @@
                 
                             <!-- Form Section -->
                             <div class="md:col-span-1">
-                                <form id="contactForm" action="/contact" method="POST" class="space-y-6">
+                                <form id="contactForm" method="POST" class="space-y-6">
                                     <div class="form-group">
                                         <input type="text" name="name" id="name" placeholder="Name"
                                             class="w-full p-4 text-sm rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-green-400 h-12 dark:placeholder:text-white/40"
@@ -1264,31 +1264,32 @@
     <script src="assets/js/theme-mode.js"></script>
 
     <script>
-        // Handling form submission with JavaScript
-    document.getElementById("contactForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
-
-    fetch("/contact", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name, email, message })
-    })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("formMessage").innerText = data; // Update the form message element with the response
-    })
-    .catch(error => {
-        document.getElementById("formMessage").innerText = "An error occurred. Please try again.";
-    });
-});
-
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission (which reloads the page)
+    
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+    
+            fetch("/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, email, message })
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Show success message on the form
+                document.getElementById("formMessage").innerText = data;
+            })
+            .catch(error => {
+                document.getElementById("formMessage").innerText = "An error occurred. Please try again.";
+            });
+        });
     </script>
+    
+      
     <!-- Js Library End -->
     
 </body>
