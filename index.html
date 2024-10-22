@@ -1264,30 +1264,35 @@
     <script src="assets/js/theme-mode.js"></script>
 
     <script>
-        document.getElementById("contactForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent default form submission (which reloads the page)
-    
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
-    
-            fetch("/contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ name, email, message })
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Show success message on the form
-                document.getElementById("formMessage").innerText = data;
-            })
-            .catch(error => {
-                document.getElementById("formMessage").innerText = "An error occurred. Please try again.";
-            });
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent default form submission behavior
+        
+            // Collect form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+        
+            // Send form data to the server using fetch
+            try {
+                const response = await fetch('/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, message }), // Convert form data to JSON
+                });
+        
+                // Handle the server response
+                const result = await response.text();
+                document.getElementById('formMessage').textContent = result; // Display response message
+            } catch (error) {
+                // Display error message in case of failure
+                document.getElementById('formMessage').textContent = 'Error sending message. Please try again later.';
+                console.error('Error:', error);
+            }
         });
-    </script>
+        </script>
+        
     
       
     <!-- Js Library End -->
