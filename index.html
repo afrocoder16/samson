@@ -1162,34 +1162,35 @@
                                 </ul>
                             </div>
                 
-                            <!-- Form Section -->
-                            <div class="md:col-span-1">
-                                <form id="contactForm" method="POST" class="space-y-6">
-                                    <div class="form-group">
-                                        <input type="text" name="name" id="name" placeholder="Name"
-                                            class="w-full p-4 text-sm rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-green-400 h-12 dark:placeholder:text-white/40"
-                                            required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" name="email" id="email" placeholder="E-Mail"
-                                            class="w-full p-4 text-sm rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-green-400 h-12 dark:placeholder:text-white/40"
-                                            required>
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea name="message" id="message" placeholder="Message" rows="5"
-                                            class="w-full p-4 text-sm rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-green-400 dark:placeholder:text-white/40 resize-none"
-                                            required></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit"
-                                            class="inline-flex items-center gap-2 text-sm font-medium border border-green-400 bg-green-500 text-white py-3 px-6 rounded-full leading-none transition-all duration-300 hover:bg-green-600 hover:border-green-600"
-                                            aria-label="Send Message">
-                                            Send Message
-                                        </button>
-                                    </div>
-                                    <div id="formMessage"></div> <!-- Placeholder for the message after form submission -->
-                                </form>
-                            </div>
+<!-- Form Section -->
+<div class="md:col-span-1">
+    <form id="contactForm" class="space-y-6"> <!-- Removed method="POST" -->
+        <div class="form-group">
+            <input type="text" name="name" id="name" placeholder="Name"
+                class="w-full p-4 text-sm rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-green-400 h-12 dark:placeholder:text-white/40"
+                required>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" id="email" placeholder="E-Mail"
+                class="w-full p-4 text-sm rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-green-400 h-12 dark:placeholder:text-white/40"
+                required>
+        </div>
+        <div class="form-group">
+            <textarea name="message" id="message" placeholder="Message" rows="5"
+                class="w-full p-4 text-sm rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-green-400 dark:placeholder:text-white/40 resize-none"
+                required></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit"
+                class="inline-flex items-center gap-2 text-sm font-medium border border-green-400 bg-green-500 text-white py-3 px-6 rounded-full leading-none transition-all duration-300 hover:bg-green-600 hover:border-green-600"
+                aria-label="Send Message">
+                Send Message
+            </button>
+        </div>
+        <div id="formMessage"></div> <!-- Placeholder for the message after form submission -->
+    </form>
+</div>
+
                         </div>
                     </div>
                 </div>
@@ -1263,35 +1264,45 @@
     <script src="assets/js/script.js"></script>
     <script src="assets/js/theme-mode.js"></script>
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault(); // Prevent default form submission behavior
-        
-            // Collect form data
+    <script type="module">
+        // Import the Supabase client
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    
+        // Initialize Supabase client with your credentials
+        const supabaseUrl = 'https://ntldpxbxgxcebatayyju.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50bGRweGJ4Z3hjZWJhdGF5eWp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc2NDQ2MjIsImV4cCI6MjA0MzIyMDYyMn0.XWRaFA0HBYf-hEGvw5miZsnbUiNK3TEBv1qTgDMQSXE';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+    
+        // Form submission logic
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault(); // Prevent page reload on form submission
+    
+            // Get form values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
-        
-            // Send form data to the server using fetch
+    
             try {
-                const response = await fetch('/contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name, email, message }), // Convert form data to JSON
-                });
-        
-                // Handle the server response
-                const result = await response.text();
-                document.getElementById('formMessage').textContent = result; // Display response message
-            } catch (error) {
-                // Display error message in case of failure
-                document.getElementById('formMessage').textContent = 'Error sending message. Please try again later.';
-                console.error('Error:', error);
+                // Send data to Supabase
+                const { data, error } = await supabase.from('portfolioDB').insert([
+                    { name, email, message }
+                ]);
+    
+                // Handle success or error
+                if (error) {
+                    document.getElementById('formMessage').textContent = 'Error: ' + error.message;
+                } else {
+                    document.getElementById('formMessage').textContent = 'Message sent successfully!';
+                    // Optionally clear the form
+                    document.getElementById('contactForm').reset();
+                }
+            } catch (err) {
+                console.error('Unexpected error:', err);
+                document.getElementById('formMessage').textContent = 'Unexpected error occurred. Please try again.';
             }
         });
-        </script>
+    </script>
+    
         
     
       
