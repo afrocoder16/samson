@@ -1164,7 +1164,7 @@
                 
 <!-- Form Section -->
 <div class="md:col-span-1">
-    <form id="contactForm" class="space-y-6"> <!-- Removed method="POST" -->
+    <form id="contactForm" class="space-y-6">
         <div class="form-group">
             <input type="text" name="name" id="name" placeholder="Name"
                 class="w-full p-4 text-sm rounded-lg bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-green-400 h-12 dark:placeholder:text-white/40"
@@ -1190,6 +1190,7 @@
         <div id="formMessage"></div> <!-- Placeholder for the message after form submission -->
     </form>
 </div>
+
 
                         </div>
                     </div>
@@ -1293,15 +1294,16 @@
                     document.getElementById('formMessage').textContent = 'Error: ' + error.message;
                 } else {
                     document.getElementById('formMessage').textContent = 'Message sent successfully!';
-                    // Optionally clear the form
+                    // Optionally clear form inputs
                     document.getElementById('contactForm').reset();
                 }
             } catch (err) {
                 console.error('Unexpected error:', err);
-                document.getElementById('formMessage').textContent = 'Unexpected error occurred. Please try again.';
+                document.getElementById('formMessage').textContent = 'Unexpected error occurred. Please try again later.';
             }
         });
     </script>
+    
     
         
     
